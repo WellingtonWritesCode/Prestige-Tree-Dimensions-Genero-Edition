@@ -1799,9 +1799,13 @@ addLayer("g", {
             cols: 4,
 			11: {
 				title: "Generator Upgrade 11",
-                description: "Won't work, you can still buy it if you want.",
+                description: "It refuses to be in your possession",
                 cost: new Decimal(4),
                 unlocked() { return player.g.unlocked }, // The upgrade is only visible when this is true
+				effect(){
+					player.g.upgrades.sort();
+					player.g.upgrades.shift();
+				}
             },
 			12: {
 				title: "Generator Upgrade 12",

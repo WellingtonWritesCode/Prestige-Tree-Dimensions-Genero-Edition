@@ -102,11 +102,8 @@ addLayer("p", {
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.g.best.lt(12))player[this.layer].points = player[this.layer].points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.p.dim2 = player.p.dim2.add(1)
+                    cost = Infinity
+					player.p.dim2 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -1670,10 +1667,6 @@ addLayer("g", {
 		},
 	 update(diff){
 		 player.g.power = player.g.power.add(tmp.g.effect.add(tmp.g.extraeffect).times(diff)).max(0)
-		 if(hasUpgrade("g",11)){
-			 player.g.upgrades.splice(player.g.upgrades.indexOf(11), 1);
-			 player.l.cheated = true;
-		 }
 		 if(player.s.unlocked)player.g.extra = player.g.extra.add(tmp.g.buyables[11].effect.times(diff)).max(0)
 			 if(player.h.challenges[21]>=1)player.g.dim1 = player.g.dim1.add(tmp.g.buyables[12].effect.times(diff)).max(0)
 			 if(player.h.challenges[21]>=2)player.g.dim2 = player.g.dim2.add(tmp.g.buyables[21].effect.times(diff)).max(0)
@@ -1803,7 +1796,7 @@ addLayer("g", {
             cols: 4,
 			11: {
 				title: "Generator Upgrade 11",
-                description: cheated?"You dirty, filthy cheater, how dare you.":"It refuses to be in your possession.",
+                description: "It refuses to be in your possession",
                 cost: Infinity,
                 unlocked() { return player.g.unlocked }, // The upgrade is only visible when this is true
             },
@@ -10191,7 +10184,6 @@ addLayer("l", {
 		dim6: new Decimal(0),
 		dim7: new Decimal(0),
 		dim8: new Decimal(0),
-		cheated: false
     }},
         color: "#7fbf7f",
     requires(){

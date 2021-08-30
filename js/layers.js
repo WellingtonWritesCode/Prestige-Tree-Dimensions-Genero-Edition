@@ -90,32 +90,13 @@ addLayer("p", {
             12: {
                 title: "2nd Prestige Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(!hasUpgrade("g",11))return Infinity;
-					let cost = Decimal.pow(100, x.pow(1.35))
-					if(player.inf.points.gte(1))cost = Decimal.pow(3, x.pow(1.35))
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-					if(inChallenge("h",11))return new Decimal(0);
-					let gain=player.p.dim2;
-					gain=gain.mul(Decimal.pow(tmp.p.dimensionalBase,player.p.buyables[12]));
-					gain=gain.mul(tmp.b.effect2);
-					if(hasUpgrade("g",13))gain=gain.mul(upgradeEffect("g",13));
-					if(hasUpgrade("g",22))gain=gain.mul(upgradeEffect("g",22));
-					if(hasUpgrade("s",11))gain=gain.mul(upgradeEffect("s",11));
-					if(hasUpgrade("s",12))gain=gain.mul(upgradeEffect("s",12));
-					if(hasUpgrade("p",12)&&hasUpgrade("p",24))gain = gain.mul(upgradeEffect("p",24));
-					if(hasUpgrade("q",11))gain=gain.mul(upgradeEffect("q",11));
-					if(player.inf.points.gte(2))gain = gain.mul(tmp.g.getGenPowerEff)
-					gain = gain.mul(tmp.q.quirkEff);
-					return layers.inf.dimInfinityEffect(gain,player.p.dim2);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(!hasUpgrade("g",11))return "Req: Generator Upgrade 11";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.p.dim2)+" 2nd Prestige Dimensions. ("+format(player.p.buyables[12])+" bought)<br>"+
-                    (inChallenge("h",51)?"They are multiplying 1st Prestige Dimension by "+format(data.effect.pow(0.05).add(1))+".<br>":"They are producing "+format(data.effect)+" 1st Prestige Dimensions per second.<br>")+
-					"Cost for Next 2nd Prestige Dimension: "+format(data.cost)+" prestige points";
+					return "The 2nd Dimension sits there, taunting you";
                 },
                 unlocked() { return player[this.layer].unlocked }, 
                 canAfford() {
@@ -144,14 +125,7 @@ addLayer("p", {
                     return cost
                 },
                 effect() {
-					let gain=player.p.dim3;
-					gain=gain.mul(Decimal.pow(tmp.p.dimensionalBase,player.p.buyables[21]));
-					gain=gain.mul(tmp.b.effect2);
-					if(hasUpgrade("p",12)&&hasUpgrade("p",24))gain = gain.mul(upgradeEffect("p",24));
-					if(hasUpgrade("q",11))gain=gain.mul(upgradeEffect("q",11));
-					gain = gain.mul(tmp.q.quirkEff);
-					return layers.inf.dimInfinityEffect(gain,player.p.dim3);
-					return gain;
+					if (player.p.dim3 != "0")player.p.dim3 = new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
 					if(player.inf.points.gte(1)){
@@ -759,9 +733,9 @@ addLayer("p", {
 				if(hasUpgrade("g",11)){
 					target=player.p.points.add(1).log(100).pow(1/1.35).add(1).floor();
 					if(player.inf.points.gte(1))target=player.p.points.add(1).log(3).pow(1/1.35).add(1).floor();
-					if(target.gt(player.p.buyables[12])){
-						player.p.dim2=player.p.dim2.add(target.sub(player.p.buyables[12]));
-						player.p.buyables[12]=target;
+					if(player.p.buyables[12] != "0"){
+						player.p.dim2=new Decimal(0);
+						player.p.buyables[12]=new Decimal(0);
 					}
 				}
 				
@@ -1825,7 +1799,7 @@ addLayer("g", {
             cols: 4,
 			11: {
 				title: "Generator Upgrade 11",
-                description: "Unlock the 2nd Prestige Dimension.",
+                description: "Won't work, you can still buy it if you want.",
                 cost: new Decimal(4),
                 unlocked() { return player.g.unlocked }, // The upgrade is only visible when this is true
             },

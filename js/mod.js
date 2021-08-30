@@ -169,7 +169,7 @@ function infinityPercentage(p){
 }
 // Display extra things at the top of the page
 var displayThings = [
-	"Mod Author: qq1010903229 (loader3229)",
+	"Original Mod Author: qq1010903229 (loader3229)",
 	function(){
 		return "Infinity Percentage: "+format(infinityPercentage())+"%";
 	},

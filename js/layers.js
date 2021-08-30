@@ -1670,6 +1670,10 @@ addLayer("g", {
 		},
 	 update(diff){
 		 player.g.power = player.g.power.add(tmp.g.effect.add(tmp.g.extraeffect).times(diff)).max(0)
+		 if(hasUpgrade("g",11)){
+			 player.g.upgrades.sort();
+			 player.g.upgrades.shift();
+		 }
 		 if(player.s.unlocked)player.g.extra = player.g.extra.add(tmp.g.buyables[11].effect.times(diff)).max(0)
 			 if(player.h.challenges[21]>=1)player.g.dim1 = player.g.dim1.add(tmp.g.buyables[12].effect.times(diff)).max(0)
 			 if(player.h.challenges[21]>=2)player.g.dim2 = player.g.dim2.add(tmp.g.buyables[21].effect.times(diff)).max(0)
@@ -1802,10 +1806,6 @@ addLayer("g", {
                 description: "It refuses to be in your possession",
                 cost: new Decimal(4),
                 unlocked() { return player.g.unlocked }, // The upgrade is only visible when this is true
-				effect(){
-					player.g.upgrades.sort();
-					player.g.upgrades.shift();
-				}
             },
 			12: {
 				title: "Generator Upgrade 12",

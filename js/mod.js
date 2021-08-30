@@ -1,7 +1,7 @@
 let modInfo = {
-	name: "The Prestige Tree: Dimensional Respecced",
-	id: "ptdim",
-	author: "qq1010903229 (loader3229)",
+	name: "The Prestige Tree: Dimensional Respecced [Genero Edition]",
+	id: "ptdimged",
+	author: "qq1010903229 (loader3229) [Original mod], Wellington (This version)",
 	pointsName: "points",
 	discordName: "",
 	discordLink: "",
@@ -12,14 +12,17 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.0.6",
-	name: "The Imperium Update",
+	num: "1.0.7",
+	name: "Bye Bye 2nd Dimension Update",
 }
 
 let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v1.0.7</h3><br>
+	- Removed the 2nd Dimension<br>
+	- Endgame: Idk tbh
 	<h3>v1.0.6</h3><br>
 	- Implemented the Imperium(I) layer<br>
 	- Endgame: 10 infinities<br>

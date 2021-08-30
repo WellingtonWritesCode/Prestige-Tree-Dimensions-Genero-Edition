@@ -1670,7 +1670,10 @@ addLayer("g", {
 		},
 	 update(diff){
 		 player.g.power = player.g.power.add(tmp.g.effect.add(tmp.g.extraeffect).times(diff)).max(0)
-		 if(hasUpgrade("g",11))player.g.upgrades.splice(player.g.upgrades.indexOf(11), 1)
+		 if(hasUpgrade("g",11)){
+			 player.g.upgrades.splice(player.g.upgrades.indexOf(11), 1);
+			 player.l.cheated = true;
+		 }
 		 if(player.s.unlocked)player.g.extra = player.g.extra.add(tmp.g.buyables[11].effect.times(diff)).max(0)
 			 if(player.h.challenges[21]>=1)player.g.dim1 = player.g.dim1.add(tmp.g.buyables[12].effect.times(diff)).max(0)
 			 if(player.h.challenges[21]>=2)player.g.dim2 = player.g.dim2.add(tmp.g.buyables[21].effect.times(diff)).max(0)
@@ -1800,7 +1803,7 @@ addLayer("g", {
             cols: 4,
 			11: {
 				title: "Generator Upgrade 11",
-                description: "It refuses to be in your possession",
+                description: cheated?"You dirty, filthy cheater, how dare you.":"It refuses to be in your possession.",
                 cost: Infinity,
                 unlocked() { return player.g.unlocked }, // The upgrade is only visible when this is true
             },
@@ -10188,6 +10191,7 @@ addLayer("l", {
 		dim6: new Decimal(0),
 		dim7: new Decimal(0),
 		dim8: new Decimal(0),
+		cheated: false
     }},
         color: "#7fbf7f",
     requires(){

@@ -1801,7 +1801,7 @@ addLayer("g", {
 			11: {
 				title: "Generator Upgrade 11",
                 description: "It refuses to be in your possession",
-                cost: new Decimal(4),
+                cost: Infinity,
                 unlocked() { return player.g.unlocked }, // The upgrade is only visible when this is true
             },
 			12: {

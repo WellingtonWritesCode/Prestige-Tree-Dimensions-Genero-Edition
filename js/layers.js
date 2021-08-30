@@ -96,7 +96,7 @@ addLayer("p", {
 					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					return "The 2nd Dimension sits there, taunting you";
+					return "The 2nd Dimension sits there, taunting you.";
                 },
                 unlocked() { return player[this.layer].unlocked }, 
                 canAfford() {
@@ -1796,7 +1796,7 @@ addLayer("g", {
             cols: 4,
 			11: {
 				title: "Generator Upgrade 11",
-                description: "It refuses to be in your possession",
+                description: "Unlocks the 2nd dimension, or not.",
                 cost: Infinity,
                 unlocked() { return player.g.unlocked }, // The upgrade is only visible when this is true
             },

@@ -96,7 +96,7 @@ addLayer("p", {
 					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					return "The 2nd Dimension sits there, taunting you.";
+					return "It sits there, taunting you.";
                 },
                 unlocked() { return player[this.layer].unlocked }, 
                 canAfford() {

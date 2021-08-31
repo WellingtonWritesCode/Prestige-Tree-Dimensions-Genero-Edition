@@ -112,38 +112,20 @@ addLayer("p", {
             21: {
                 title: "3rd Prestige Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.inf.points.gte(1)){
-						if(player.e.best.lt(4))return Infinity;
-					}else{
-						if(player.e.best.lt(1e34))return Infinity;
-					}
-					let cost = Decimal.pow(1e4, x.pow(1.35))
-					if(player.inf.points.gte(1))cost = Decimal.pow(5, x.pow(1.35))
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-					if (player.p.dim3 != "0")player.p.dim3 = new Decimal(0);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.inf.points.gte(1)){
-						if(player.e.best.lt(4))return "Req: 4 Enhance Points";
-					}else{
-						if(player.e.best.lt(1e34))return "Req: 1e34 Enhance Points";
-					}
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.p.dim3)+" 3rd Prestige Dimensions. ("+format(player.p.buyables[21])+" bought)<br>"+
-                    (inChallenge("h",51)?"They are producing "+format(data.effect)+" 1st Prestige Dimensions per second.<br>":"They are producing "+format(data.effect)+" 2nd Prestige Dimensions per second.<br>")+
-					"Cost for Next 3rd Prestige Dimension: "+format(data.cost)+" prestige points";
+                    return "Oh wow, you made it to the 3rd one, congrats.";
                 },
                 unlocked() { return player.e.unlocked }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.g.best.lt(12))player[this.layer].points = player[this.layer].points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.p.dim3 = player.p.dim3.add(1)
+                    cost = Infinity
+					player.p.dim3 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -152,38 +134,21 @@ addLayer("p", {
             22: {
                 title: "4th Prestige Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[11]<1)return Infinity;
-					let cost = Decimal.pow(1e8, x.pow(1.35))
-					if(player.inf.points.gte(1))cost = Decimal.pow(7, x.pow(1.35))
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-					let gain=player.p.dim4;
-					gain=gain.mul(Decimal.pow(tmp.p.dimensionalBase,player.p.buyables[22]));
-					gain=gain.mul(tmp.b.effect2);
-					if(hasUpgrade("p",12)&&hasUpgrade("p",24))gain = gain.mul(upgradeEffect("p",24));
-					if(hasUpgrade("q",11))gain=gain.mul(upgradeEffect("q",11));
-					gain = gain.mul(tmp.q.quirkEff);
-					return layers.inf.dimInfinityEffect(gain,player.p.dim4);
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[11]<1)return "Req: Complete H challenge 1";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.p.dim4)+" 4th Prestige Dimensions. ("+format(player.p.buyables[22])+" bought)<br>"+
-                    (inChallenge("h",51)?"They are producing "+format(data.effect)+" 2nd Prestige Dimensions per second.<br>":"They are producing "+format(data.effect)+" 3rd Prestige Dimensions per second.<br>")+
-					"Cost for Next 4th Prestige Dimension: "+format(data.cost)+" prestige points";
+                    return "You have a lot of patience, good for you.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
-                buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.g.best.lt(12))player[this.layer].points = player[this.layer].points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.p.dim4 = player.p.dim4.add(1)
-                },
+				buy() { 
+					cost = Infinity
+					player.p.dim4 = new Decimal(0)
+				},
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
                 
@@ -191,37 +156,20 @@ addLayer("p", {
             31: {
                 title: "5th Prestige Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[11]<2)return Infinity;
-					let cost = Decimal.pow(1e16, x.pow(1.35))
-					if(player.inf.points.gte(1))cost = Decimal.pow(11, x.pow(1.35))
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-					let gain=player.p.dim5;
-					gain=gain.mul(Decimal.pow(tmp.p.dimensionalBase,player.p.buyables[31]));
-					gain=gain.mul(tmp.b.effect2);
-					if(hasUpgrade("p",12)&&hasUpgrade("p",24))gain = gain.mul(upgradeEffect("p",24));
-					if(hasUpgrade("q",11))gain=gain.mul(upgradeEffect("q",11));
-					gain = gain.mul(tmp.q.quirkEff);
-					return layers.inf.dimInfinityEffect(gain,player.p.dim5);
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[11]<2)return "Req: Complete H challenge 1 2 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.p.dim5)+" 5th Prestige Dimensions. ("+format(player.p.buyables[31])+" bought)<br>"+
-                    (inChallenge("h",51)?"They are producing "+format(data.effect)+" 3rd Prestige Dimensions per second.<br>":"They are producing "+format(data.effect)+" 4th Prestige Dimensions per second.<br>")+
-					"Cost for Next 5th Prestige Dimension: "+format(data.cost)+" prestige points";
+                    return "Alright I'll let you buy this one, if you manage to get one 2nd dimension.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.g.best.lt(12))player[this.layer].points = player[this.layer].points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.p.dim5 = player.p.dim5.add(1)
+                    cost = Infinity
+					player.p.dim5 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -230,38 +178,21 @@ addLayer("p", {
             32: {
                 title: "6th Prestige Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[11]<3)return Infinity;
-					let cost = Decimal.pow(1e32, x.pow(1.35))
-					if(player.inf.points.gte(1))cost = Decimal.pow(13, x.pow(1.35))
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-					let gain=player.p.dim6;
-					gain=gain.mul(Decimal.pow(tmp.p.dimensionalBase,player.p.buyables[32]));
-					gain=gain.mul(tmp.b.effect2);
-					if(hasUpgrade("p",12)&&hasUpgrade("p",24))gain = gain.mul(upgradeEffect("p",24));
-					if(hasUpgrade("q",11))gain=gain.mul(upgradeEffect("q",11));
-					gain = gain.mul(tmp.q.quirkEff);
-					return layers.inf.dimInfinityEffect(gain,player.p.dim6);
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[11]<3)return "Req: Complete H challenge 1 3 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.p.dim6)+" 6th Prestige Dimensions. ("+format(player.p.buyables[32])+" bought)<br>"+
-                    (inChallenge("h",51)?"They are producing "+format(data.effect)+" 4th Prestige Dimensions per second.<br>":"They are producing "+format(data.effect)+" 5th Prestige Dimensions per second.<br>")+
-					"Cost for Next 6th Prestige Dimension: "+format(data.cost)+" prestige points";
+                    return "I lied about letting you get the previous one, sorry.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
-                buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.g.best.lt(12))player[this.layer].points = player[this.layer].points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.p.dim6 = player.p.dim6.add(1)
-                },
+				buy() { 
+					cost = Infinity
+					player.p.dim6 = new Decimal(0)
+				},
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
                 
@@ -269,38 +200,21 @@ addLayer("p", {
             41: {
                 title: "7th Prestige Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[11]<4)return Infinity;
-					let cost = Decimal.pow(1e64, x.pow(1.35))
-					if(player.inf.points.gte(1))cost = Decimal.pow(17, x.pow(1.35))
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-					let gain=player.p.dim7;
-					gain=gain.mul(Decimal.pow(tmp.p.dimensionalBase,player.p.buyables[41]));
-					gain=gain.mul(tmp.b.effect2);
-					if(hasUpgrade("p",12)&&hasUpgrade("p",24))gain = gain.mul(upgradeEffect("p",24));
-					if(hasUpgrade("q",11))gain=gain.mul(upgradeEffect("q",11));
-					gain = gain.mul(tmp.q.quirkEff);
-					return layers.inf.dimInfinityEffect(gain,player.p.dim7);
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[11]<4)return "Req: Complete H challenge 1 4 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.p.dim7)+" 7th Prestige Dimensions. ("+format(player.p.buyables[41])+" bought)<br>"+
-                    (inChallenge("h",51)?"They are producing "+format(data.effect)+" 5th Prestige Dimensions per second.<br>":"They are producing "+format(data.effect)+" 6th Prestige Dimensions per second.<br>")+
-					"Cost for Next 7th Prestige Dimension: "+format(data.cost)+" prestige points";
+                    return "Might be luck related, I dunno.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
-                buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.g.best.lt(12))player[this.layer].points = player[this.layer].points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.p.dim7 = player.p.dim7.add(1)
-                },
+				buy() { 
+					cost = Infinity
+					player.p.dim7 = new Decimal(0)
+				},
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
                 
@@ -308,38 +222,21 @@ addLayer("p", {
             42: {
                 title: "8th Prestige Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[11]<5)return Infinity;
-					let cost = Decimal.pow(1e128, x.pow(1.35))
-					if(player.inf.points.gte(1))cost = Decimal.pow(19, x.pow(1.35))
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-					let gain=player.p.dim8;
-					gain=gain.mul(Decimal.pow(tmp.p.dimensionalBase,player.p.buyables[42]));
-					gain=gain.mul(tmp.b.effect2);
-					if(hasUpgrade("p",12)&&hasUpgrade("p",24))gain = gain.mul(upgradeEffect("p",24));
-					if(hasUpgrade("q",11))gain=gain.mul(upgradeEffect("q",11));
-					gain = gain.mul(tmp.q.quirkEff);
-					return layers.inf.dimInfinityEffect(gain,player.p.dim8);
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[11]<5)return "Req: Complete H challenge 1 5 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.p.dim8)+" 8th Prestige Dimensions. ("+format(player.p.buyables[42])+" bought)<br>"+
-                    (inChallenge("h",51)?"They are producing "+format(data.effect)+" 6th Prestige Dimensions per second.<br>":"They are producing "+format(data.effect)+" 7th Prestige Dimensions per second.<br>")+
-					"Cost for Next 8th Prestige Dimension: "+format(data.cost)+" prestige points";
+                    return "Req: 1 9th Dimension.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
-                buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.g.best.lt(12))player[this.layer].points = player[this.layer].points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.p.dim8 = player.p.dim8.add(1)
-                },
+				buy() { 
+					cost = Infinity
+					player.p.dim8 = new Decimal(0)
+				},
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
                 
@@ -1312,33 +1209,20 @@ addLayer("b", {
             12: {
                 title: "2nd Booster Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[12]<1)return Infinity;
-					let cost = Decimal.pow(1e10, x.pow(1.35))
-					if(player.inf.points.gte(3))cost = Decimal.pow(3, x.pow(1.35))
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-					let gain=player.b.dim2;
-					gain=gain.mul(Decimal.pow(tmp.b.dimensionalBase,player.b.buyables[12]));
-					if(hasUpgrade("sb",12))gain=gain.mul(upgradeEffect("sb",12));
-					if(hasUpgrade("t",33))gain=gain.mul(upgradeEffect("t",33));
-					return layers.inf.dimInfinityEffect(gain,player.b.dim2);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[12]<1)return "Req: Complete H challenge 2";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.b.dim2)+" 2nd Booster Dimensions. ("+format(player.b.buyables[12])+" bought)<br>"+
-                    (inChallenge("h",51)?"They are multiplying 1st Booster Dimensions by "+format(data.effect.pow(0.05))+".<br>":"They are producing "+format(data.effect)+" 1st Booster Dimensions per second.<br>")+
-					"Cost for Next 2nd Booster Dimension: "+format(data.cost)+" Time Energy";
+                    return "Boosts 2nd Prestige Dimension's taunting power.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player.t.energy.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.t.points.lt(25))player.t.energy = player.t.energy.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player.b.dim2 = player.b.dim2.add(1)
+                    cost = Infinity
+                    player.b.dim2 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -1346,33 +1230,20 @@ addLayer("b", {
             21: {
                 title: "3rd Booster Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[12]<2)return Infinity;
-					let cost = Decimal.pow(1e50, x.pow(1.35))
-					if(player.inf.points.gte(3))cost = Decimal.pow(5, x.pow(1.35))
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-					let gain=player.b.dim3;
-					gain=gain.mul(Decimal.pow(tmp.b.dimensionalBase,player.b.buyables[21]));
-					if(hasUpgrade("sb",12))gain=gain.mul(upgradeEffect("sb",12));
-					if(hasUpgrade("t",33))gain=gain.mul(upgradeEffect("t",33));
-					return layers.inf.dimInfinityEffect(gain,player.b.dim3);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[12]<2)return "Req: Complete H challenge 2 2 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.b.dim3)+" 3rd Booster Dimensions. ("+format(player.b.buyables[21])+" bought)<br>"+
-                    (inChallenge("h",51)?"They are producing "+format(data.effect)+" 1st Booster Dimensions per second.<br>":"They are producing "+format(data.effect)+" 2nd Booster Dimensions per second.<br>")+
-					"Cost for Next 3rd Booster Dimension: "+format(data.cost)+" Time Energy";
+                    return "This one uhhh, it- it does something, I guess.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player.t.energy.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.t.points.lt(25))player.t.energy = player.t.energy.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player.b.dim3 = player.b.dim3.add(1)
+                    cost = Infinity
+                    player.b.dim3 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -1380,33 +1251,20 @@ addLayer("b", {
             22: {
                 title: "4th Booster Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[12]<3)return Infinity;
-					let cost = Decimal.pow(1e250, x.pow(1.35))
-					if(player.inf.points.gte(3))cost = Decimal.pow(7, x.pow(1.35))
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-					let gain=player.b.dim4;
-					gain=gain.mul(Decimal.pow(tmp.b.dimensionalBase,player.b.buyables[22]));
-					if(hasUpgrade("sb",12))gain=gain.mul(upgradeEffect("sb",12));
-					if(hasUpgrade("t",33))gain=gain.mul(upgradeEffect("t",33));
-					return layers.inf.dimInfinityEffect(gain,player.b.dim4);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[12]<3)return "Req: Complete H challenge 2 3 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.b.dim4)+" 4th Booster Dimensions. ("+format(player.b.buyables[22])+" bought)<br>"+
-                    (inChallenge("h",51)?"They are producing "+format(data.effect)+" 2nd Booster Dimensions per second.<br>":"They are producing "+format(data.effect)+" 3rd Booster Dimensions per second.<br>")+
-					"Cost for Next 4th Booster Dimension: "+format(data.cost)+" Time Energy";
+                    return "My friend hates the number 4 so I removed this dimension for her.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player.t.energy.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.t.points.lt(25))player.t.energy = player.t.energy.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player.b.dim4 = player.b.dim4.add(1)
+                    cost = Infinity
+                    player.b.dim4 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -1414,33 +1272,20 @@ addLayer("b", {
             31: {
                 title: "5th Booster Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[12]<4)return Infinity;
-					let cost = Decimal.pow("1e1250", x.pow(1.35))
-					if(player.inf.points.gte(3))cost = Decimal.pow(11, x.pow(1.35))
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-					let gain=player.b.dim5;
-					gain=gain.mul(Decimal.pow(tmp.b.dimensionalBase,player.b.buyables[31]));
-					if(hasUpgrade("sb",12))gain=gain.mul(upgradeEffect("sb",12));
-					if(hasUpgrade("t",33))gain=gain.mul(upgradeEffect("t",33));
-					return layers.inf.dimInfinityEffect(gain,player.b.dim5);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[12]<4)return "Req: Complete H challenge 2 4 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.b.dim5)+" 5th Booster Dimensions. ("+format(player.b.buyables[31])+" bought)<br>"+
-                    (inChallenge("h",51)?"They are producing "+format(data.effect)+" 3rd Booster Dimensions per second.<br>":"They are producing "+format(data.effect)+" 4th Booster Dimensions per second.<br>")+
-					"Cost for Next 5th Booster Dimension: "+format(data.cost)+" Time Energy";
+                    return "Error 505: Dimen5ion not found.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player.t.energy.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.t.points.lt(25))player.t.energy = player.t.energy.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player.b.dim5 = player.b.dim5.add(1)
+                    cost = Infinity
+                    player.b.dim5 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -1448,33 +1293,20 @@ addLayer("b", {
             32: {
                 title: "6th Booster Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[12]<5)return Infinity;
-					let cost = Decimal.pow("1e6250", x.pow(1.35))
-					if(player.inf.points.gte(3))cost = Decimal.pow(13, x.pow(1.35))
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-					let gain=player.b.dim6;
-					gain=gain.mul(Decimal.pow(tmp.b.dimensionalBase,player.b.buyables[32]));
-					if(hasUpgrade("sb",12))gain=gain.mul(upgradeEffect("sb",12));
-					if(hasUpgrade("t",33))gain=gain.mul(upgradeEffect("t",33));
-					return layers.inf.dimInfinityEffect(gain,player.b.dim6);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[12]<5)return "Req: Complete H challenge 2 5 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.b.dim6)+" 6th Booster Dimensions. ("+format(player.b.buyables[32])+" bought)<br>"+
-                    (inChallenge("h",51)?"They are producing "+format(data.effect)+" 4th Booster Dimensions per second.<br>":"They are producing "+format(data.effect)+" 5th Booster Dimensions per second.<br>")+
-					"Cost for Next 6th Booster Dimension: "+format(data.cost)+" Time Energy";
+                    return "Sorry, this dimension is taken.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player.t.energy.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.t.points.lt(25))player.t.energy = player.t.energy.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player.b.dim6 = player.b.dim6.add(1)
+                    cost = Infinity
+                    player.b.dim6 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -1482,33 +1314,20 @@ addLayer("b", {
             41: {
                 title: "7th Booster Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[12]<6)return Infinity;
-					let cost = Decimal.pow("1e31250", x.pow(1.35))
-					if(player.inf.points.gte(3))cost = Decimal.pow(17, x.pow(1.35))
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-					let gain=player.b.dim7;
-					gain=gain.mul(Decimal.pow(tmp.b.dimensionalBase,player.b.buyables[41]));
-					if(hasUpgrade("sb",12))gain=gain.mul(upgradeEffect("sb",12));
-					if(hasUpgrade("t",33))gain=gain.mul(upgradeEffect("t",33));
-					return layers.inf.dimInfinityEffect(gain,player.b.dim7);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[12]<6)return "Req: Complete H challenge 2 6 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.b.dim7)+" 7th Booster Dimensions. ("+format(player.b.buyables[41])+" bought)<br>"+
-                    (inChallenge("h",51)?"They are producing "+format(data.effect)+" 5th Booster Dimensions per second.<br>":"They are producing "+format(data.effect)+" 6th Booster Dimensions per second.<br>")+
-					"Cost for Next 7th Booster Dimension: "+format(data.cost)+" Time Energy";
+                    return "This dimension doesn't thing you're cool enough to hang.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player.t.energy.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.t.points.lt(25))player.t.energy = player.t.energy.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player.b.dim7 = player.b.dim7.add(1)
+                    cost = Infinity
+                    player.b.dim7 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -1516,33 +1335,20 @@ addLayer("b", {
             42: {
                 title: "8th Booster Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[12]<7)return Infinity;
-					let cost = Decimal.pow("1e156250", x.pow(1.35))
-					if(player.inf.points.gte(3))cost = Decimal.pow(19, x.pow(1.35))
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-					let gain=player.b.dim8;
-					gain=gain.mul(Decimal.pow(tmp.b.dimensionalBase,player.b.buyables[42]));
-					if(hasUpgrade("sb",12))gain=gain.mul(upgradeEffect("sb",12));
-					if(hasUpgrade("t",33))gain=gain.mul(upgradeEffect("t",33));
-					return layers.inf.dimInfinityEffect(gain,player.b.dim8);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[12]<7)return "Req: Complete H challenge 2 7 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.b.dim8)+" 8th Booster Dimensions. ("+format(player.b.buyables[42])+" bought)<br>"+
-                    (inChallenge("h",51)?"They are producing "+format(data.effect)+" 6th Booster Dimensions per second.<br>":"They are producing "+format(data.effect)+" 7th Booster Dimensions per second.<br>")+
-					"Cost for Next 8th Booster Dimension: "+format(data.cost)+" Time Energy";
+                    return "Gone fishing.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player.t.energy.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.t.points.lt(25))player.t.energy = player.t.energy.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player.b.dim8 = player.b.dim8.add(1)
+                    cost = Infinity
+                    player.b.dim8 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -2095,38 +1901,20 @@ addLayer("g", {
             12: {
                 title: "2nd Generator Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[21]<1)return Infinity;
-                    let cost = Decimal.pow(1e10, x.pow(1.35));
-					if(player.inf.points.gte(2))cost = Decimal.pow(3, x.pow(1.35));
-					if(x==0)return new Decimal(0);
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-                    let gain=player.g.dim2;
-					gain=gain.mul(Decimal.pow(tmp.g.dimensionalBase,player.g.buyables[12]));
-					if(hasUpgrade("s",31))gain = gain.mul(upgradeEffect("s",31));
-					if(hasUpgrade("g",42))gain = gain.mul(upgradeEffect("g",42));
-					gain=gain.mul(tmp.sg.getSuperGenPowerEff);
-					if(hasUpgrade("ss",21))gain=gain.mul(tmp.s.buyables[11].effect);
-					if(hasUpgrade("g",34))gain = gain.mul(upgradeEffect("g",34));
-					return layers.inf.dimInfinityEffect(gain,player.g.dim2);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[21]<1)return "Req: Complete H challenge 3";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.g.dim2)+" 2nd Generator Dimensions. ("+format(player.g.buyables[12])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 1st Generator Dimensions per second.<br>"+
-					"Cost for Next 2nd Generator Dimension: "+format(data.cost)+" Generator Power";
+                    return "Generates insults for the 2nd Prestige Dimension to throw at you.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player[this.layer].power.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.s.best.lt(10))player[this.layer].power = player[this.layer].power.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.g.dim2 = player.g.dim2.add(1)
+                    cost = Infinity
+                    player.g.dim2 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -2134,38 +1922,20 @@ addLayer("g", {
             21: {
                 title: "3rd Generator Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[21]<2)return Infinity;
-                    let cost = Decimal.pow(1e50, x.pow(1.35));
-					if(player.inf.points.gte(2))cost = Decimal.pow(5, x.pow(1.35));
-					if(x==0)return new Decimal(0);
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-                    let gain=player.g.dim3;
-					gain=gain.mul(Decimal.pow(tmp.g.dimensionalBase,player.g.buyables[21]));
-					if(hasUpgrade("s",31))gain = gain.mul(upgradeEffect("s",31));
-					if(hasUpgrade("g",42))gain = gain.mul(upgradeEffect("g",42));
-					gain=gain.mul(tmp.sg.getSuperGenPowerEff);
-					if(hasUpgrade("ss",21))gain=gain.mul(tmp.s.buyables[11].effect);
-					if(hasUpgrade("g",34))gain = gain.mul(upgradeEffect("g",34));
-					return layers.inf.dimInfinityEffect(gain,player.g.dim3);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[21]<2)return "Req: Complete H challenge 3 2 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.g.dim3)+" 3rd Generator Dimensions. ("+format(player.g.buyables[21])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 2nd Generator Dimensions per second.<br>"+
-					"Cost for Next 3rd Generator Dimension: "+format(data.cost)+" Generator Power";
+                    return "<3, oh wait, no it isn't.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player[this.layer].power.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.s.best.lt(10))player[this.layer].power = player[this.layer].power.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.g.dim3 = player.g.dim3.add(1)
+                    cost = Infinity
+                    player.g.dim3 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -2173,38 +1943,20 @@ addLayer("g", {
             22: {
                 title: "4th Generator Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[21]<3)return Infinity;
-                    let cost = Decimal.pow(1e250, x.pow(1.35));
-					if(player.inf.points.gte(2))cost = Decimal.pow(7, x.pow(1.35));
-					if(x==0)return new Decimal(0);
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-                    let gain=player.g.dim4;
-					gain=gain.mul(Decimal.pow(tmp.g.dimensionalBase,player.g.buyables[22]));
-					if(hasUpgrade("s",31))gain = gain.mul(upgradeEffect("s",31));
-					if(hasUpgrade("g",42))gain = gain.mul(upgradeEffect("g",42));
-					gain=gain.mul(tmp.sg.getSuperGenPowerEff);
-					if(hasUpgrade("ss",21))gain=gain.mul(tmp.s.buyables[11].effect);
-					if(hasUpgrade("g",34))gain = gain.mul(upgradeEffect("g",34));
-					return layers.inf.dimInfinityEffect(gain,player.g.dim4);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[21]<3)return "Req: Complete H challenge 3 3 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.g.dim4)+" 4th Generator Dimensions. ("+format(player.g.buyables[22])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 3rd Generator Dimensions per second.<br>"+
-					"Cost for Next 4th Generator Dimension: "+format(data.cost)+" Generator Power";
+                    return "This actually generates 5th dimensions.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player[this.layer].power.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.s.best.lt(10))player[this.layer].power = player[this.layer].power.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.g.dim4 = player.g.dim4.add(1)
+                    cost = Infinity
+                    player.g.dim4 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -2212,38 +1964,20 @@ addLayer("g", {
             31: {
                 title: "5th Generator Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[21]<4)return Infinity;
-                    let cost = Decimal.pow("1e1250", x.pow(1.35));
-					if(player.inf.points.gte(2))cost = Decimal.pow(11, x.pow(1.35));
-					if(x==0)return new Decimal(0);
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-                    let gain=player.g.dim5;
-					gain=gain.mul(Decimal.pow(tmp.g.dimensionalBase,player.g.buyables[31]));
-					if(hasUpgrade("s",31))gain = gain.mul(upgradeEffect("s",31));
-					if(hasUpgrade("g",42))gain = gain.mul(upgradeEffect("g",42));
-					gain=gain.mul(tmp.sg.getSuperGenPowerEff);
-					if(hasUpgrade("ss",21))gain=gain.mul(tmp.s.buyables[11].effect);
-					if(hasUpgrade("g",34))gain = gain.mul(upgradeEffect("g",34));
-					return layers.inf.dimInfinityEffect(gain,player.g.dim5);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[21]<4)return "Req: Complete H challenge 3 4 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.g.dim5)+" 5th Generator Dimensions. ("+format(player.g.buyables[31])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 4th Generator Dimensions per second.<br>"+
-					"Cost for Next 5th Generator Dimension: "+format(data.cost)+" Generator Power";
+                    return "Look mom! No 5th dimensions!";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player[this.layer].power.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.s.best.lt(10))player[this.layer].power = player[this.layer].power.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.g.dim5 = player.g.dim5.add(1)
+                    cost = Infinity
+                    player.g.dim5 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -2251,38 +1985,20 @@ addLayer("g", {
             32: {
                 title: "6th Generator Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[21]<5)return Infinity;
-                    let cost = Decimal.pow("1e6250", x.pow(1.35));
-					if(player.inf.points.gte(2))cost = Decimal.pow(13, x.pow(1.35));
-					if(x==0)return new Decimal(0);
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-                    let gain=player.g.dim6;
-					gain=gain.mul(Decimal.pow(tmp.g.dimensionalBase,player.g.buyables[32]));
-					if(hasUpgrade("s",31))gain = gain.mul(upgradeEffect("s",31));
-					if(hasUpgrade("g",42))gain = gain.mul(upgradeEffect("g",42));
-					gain=gain.mul(tmp.sg.getSuperGenPowerEff);
-					if(hasUpgrade("ss",21))gain=gain.mul(tmp.s.buyables[11].effect);
-					if(hasUpgrade("g",34))gain = gain.mul(upgradeEffect("g",34));
-					return layers.inf.dimInfinityEffect(gain,player.g.dim6);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[21]<5)return "Req: Complete H challenge 3 5 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.g.dim6)+" 6th Generator Dimensions. ("+format(player.g.buyables[32])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 5th Generator Dimensions per second.<br>"+
-					"Cost for Next 6th Generator Dimension: "+format(data.cost)+" Generator Power";
+                    return "Generates some bad vibes, or so I heard, idk.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player[this.layer].power.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.s.best.lt(10))player[this.layer].power = player[this.layer].power.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.g.dim6 = player.g.dim6.add(1)
+                    cost = Infinity
+                    player.g.dim6 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -2290,38 +2006,20 @@ addLayer("g", {
             41: {
                 title: "7th Generator Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[21]<6)return Infinity;
-                    let cost = Decimal.pow("1e31250", x.pow(1.35));
-					if(player.inf.points.gte(2))cost = Decimal.pow(17, x.pow(1.35));
-					if(x==0)return new Decimal(0);
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-                    let gain=player.g.dim7;
-					gain=gain.mul(Decimal.pow(tmp.g.dimensionalBase,player.g.buyables[41]));
-					if(hasUpgrade("s",31))gain = gain.mul(upgradeEffect("s",31));
-					if(hasUpgrade("g",42))gain = gain.mul(upgradeEffect("g",42));
-					gain=gain.mul(tmp.sg.getSuperGenPowerEff);
-					if(hasUpgrade("ss",21))gain=gain.mul(tmp.s.buyables[11].effect);
-					if(hasUpgrade("g",34))gain = gain.mul(upgradeEffect("g",34));
-					return layers.inf.dimInfinityEffect(gain,player.g.dim7);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[21]<6)return "Req: Complete H challenge 3 6 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.g.dim7)+" 7th Generator Dimensions. ("+format(player.g.buyables[41])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 6th Generator Dimensions per second.<br>"+
-					"Cost for Next 7th Generator Dimension: "+format(data.cost)+" Generator Power";
+                    return "Generates the power of friendship.";
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player[this.layer].power.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.s.best.lt(10))player[this.layer].power = player[this.layer].power.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.g.dim7 = player.g.dim7.add(1)
+                    cost = Infinity
+                    player.g.dim7 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -2329,38 +2027,20 @@ addLayer("g", {
             42: {
                 title: "8th Generator Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[21]<7)return Infinity;
-                    let cost = Decimal.pow("1e156250", x.pow(1.35));
-					if(player.inf.points.gte(2))cost = Decimal.pow(19, x.pow(1.35));
-					if(x==0)return new Decimal(0);
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-                    let gain=player.g.dim8;
-					gain=gain.mul(Decimal.pow(tmp.g.dimensionalBase,player.g.buyables[41]));
-					if(hasUpgrade("s",31))gain = gain.mul(upgradeEffect("s",31));
-					if(hasUpgrade("g",42))gain = gain.mul(upgradeEffect("g",42));
-					gain=gain.mul(tmp.sg.getSuperGenPowerEff);
-					if(hasUpgrade("ss",21))gain=gain.mul(tmp.s.buyables[11].effect);
-					if(hasUpgrade("g",34))gain = gain.mul(upgradeEffect("g",34));
-					return layers.inf.dimInfinityEffect(gain,player.g.dim8);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[21]<7)return "Req: Complete H challenge 3 7 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.g.dim8)+" 8th Generator Dimensions. ("+format(player.g.buyables[42])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 7th Generator Dimensions per second.<br>"+
-					"Cost for Next 8th Generator Dimension: "+format(data.cost)+" Generator Power";
+                    return "Should generate a life for you tbh."
                 },
                 unlocked() { return player.h.unlocked }, 
                 canAfford() {
                     return player[this.layer].power.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.s.best.lt(10))player[this.layer].power = player[this.layer].power.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.g.dim8 = player.g.dim8.add(1)
+                    cost = Infinity
+                    player.g.dim8 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -2621,37 +2301,20 @@ addLayer("t", {
             12: {
                 title: "2nd Time Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[32]<1)return Infinity;
-                    let cost = x.mul(0.065).pow(1.2).add(1).mul(160).ceil()
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.t.dim2;
-					gain=gain.mul(Decimal.pow(2,player.t.buyables[12]));
-					gain=gain.mul(tmp.h.effect);
-					gain=gain.mul(tmp.o.solEnEff2);
-					gain=gain.mul(tmp.h.challenges[52].rewardEffect);
-					if(hasUpgrade("t",14))gain=gain.mul(upgradeEffect("t",11));
-					if(hasUpgrade("b",51))gain=gain.mul(upgradeEffect("b",33));
-					if(hasUpgrade("t",52))gain=gain.mul(upgradeEffect("t",13));
-					return layers.inf.dimInfinityEffect(gain,player.t.dim2);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[32]<1)return "Req: Complete H Challenge 6";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.t.dim2)+" 2nd Time Dimensions. ("+format(player.t.buyables[12])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 1st Time Dimensions per second.<br>"+
-					"Cost for Next 2nd Time Dimension: "+format(data.cost)+" Boosters";
+					return "Got no time.";
                 },
                 unlocked() { return player.q.unlocked }, 
                 canAfford() {
                     return player.b.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					if(player.h.best.lt(1))player.b.points = player.b.points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.t.dim2 = player.t.dim2.add(1)
+                    ccost = Infinity
+                    player[this.layer].dim2 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -2659,36 +2322,20 @@ addLayer("t", {
             21: {
                 title: "3rd Time Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[32]<2)return Infinity;
-                    let cost = x.mul(0.065).pow(1.2).add(1).mul(640).ceil()
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.t.dim3;
-					gain=gain.mul(Decimal.pow(2,player.t.buyables[21]));
-					gain=gain.mul(tmp.h.effect);
-					gain=gain.mul(tmp.o.solEnEff2);
-					gain=gain.mul(tmp.h.challenges[52].rewardEffect);
-					if(hasUpgrade("t",14))gain=gain.mul(upgradeEffect("t",11));
-					if(hasUpgrade("b",51))gain=gain.mul(upgradeEffect("b",33));
-					return layers.inf.dimInfinityEffect(gain,player.t.dim3);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[32]<2)return "Req: Complete H Challenge 6 2 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.t.dim3)+" 3rd Time Dimensions. ("+format(player.t.buyables[21])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 2nd Time Dimensions per second.<br>"+
-					"Cost for Next 3rd Time Dimension: "+format(data.cost)+" Boosters";
+					return "Unfortunately, Eternity Challenge 1 is on.";
                 },
                 unlocked() { return player.q.unlocked }, 
                 canAfford() {
                     return player.b.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					if(player.h.best.lt(1))player.b.points = player.b.points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.t.dim3 = player.t.dim3.add(1)
+                    cost = Infinity
+                    player[this.layer].dim3 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -2696,36 +2343,20 @@ addLayer("t", {
             22: {
                 title: "4th Time Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[32]<3)return Infinity;
-                    let cost = x.mul(0.065).pow(1.2).add(1).mul(2560).ceil()
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.t.dim4;
-					gain=gain.mul(Decimal.pow(2,player.t.buyables[22]));
-					gain=gain.mul(tmp.h.effect);
-					gain=gain.mul(tmp.o.solEnEff2);
-					gain=gain.mul(tmp.h.challenges[52].rewardEffect);
-					if(hasUpgrade("t",14))gain=gain.mul(upgradeEffect("t",11));
-					if(hasUpgrade("b",51))gain=gain.mul(upgradeEffect("b",33));
-					return layers.inf.dimInfinityEffect(gain,player.t.dim4);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[32]<3)return "Req: Complete H Challenge 6 3 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.t.dim4)+" 4th Time Dimensions. ("+format(player.t.buyables[22])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 3rd Time Dimensions per second.<br>"+
-					"Cost for Next 4th Time Dimension: "+format(data.cost)+" Boosters";
+					return "Who even reads these?";
                 },
                 unlocked() { return player.q.unlocked }, 
                 canAfford() {
                     return player.b.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					if(player.h.best.lt(1))player.b.points = player.b.points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.t.dim4 = player.t.dim4.add(1)
+                    cost = Infinity
+                    player[this.layer].dim4 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -2733,36 +2364,20 @@ addLayer("t", {
             31: {
                 title: "5th Time Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[32]<4)return Infinity;
-                    let cost = x.mul(0.065).pow(1.2).add(1).mul(10240).ceil()
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.t.dim5;
-					gain=gain.mul(Decimal.pow(2,player.t.buyables[31]));
-					gain=gain.mul(tmp.h.effect);
-					gain=gain.mul(tmp.o.solEnEff2);
-					gain=gain.mul(tmp.h.challenges[52].rewardEffect);
-					if(hasUpgrade("t",14))gain=gain.mul(upgradeEffect("t",11));
-					if(hasUpgrade("b",51))gain=gain.mul(upgradeEffect("b",33));
-					return layers.inf.dimInfinityEffect(gain,player.t.dim5);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[32]<4)return "Req: Complete H Challenge 6 4 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.t.dim5)+" 5th Time Dimensions. ("+format(player.t.buyables[31])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 4th Time Dimensions per second.<br>"+
-					"Cost for Next 5th Time Dimension: "+format(data.cost)+" Boosters";
+					return "It's called a \"buyable\", not an \"affordable\", that's why you can't get it.";
                 },
                 unlocked() { return player.q.unlocked }, 
                 canAfford() {
                     return player.b.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					if(player.h.best.lt(1))player.b.points = player.b.points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.t.dim5 = player.t.dim5.add(1)
+                    cost = Infinity
+                    player[this.layer].dim5 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -2770,36 +2385,20 @@ addLayer("t", {
             32: {
                 title: "6th Time Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[32]<5)return Infinity;
-                    let cost = x.mul(0.065).pow(1.2).add(1).mul(20000).ceil()
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.t.dim6;
-					gain=gain.mul(Decimal.pow(2,player.t.buyables[32]));
-					gain=gain.mul(tmp.h.effect);
-					gain=gain.mul(tmp.o.solEnEff2);
-					gain=gain.mul(tmp.h.challenges[52].rewardEffect);
-					if(hasUpgrade("t",14))gain=gain.mul(upgradeEffect("t",11));
-					if(hasUpgrade("b",51))gain=gain.mul(upgradeEffect("b",33));
-					return layers.inf.dimInfinityEffect(gain,player.t.dim6);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[32]<5)return "Req: Complete H Challenge 6 5 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.t.dim6)+" 6th Time Dimensions. ("+format(player.t.buyables[32])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 5th Time Dimensions per second.<br>"+
-					"Cost for Next 6th Time Dimension: "+format(data.cost)+" Boosters";
+					return "Just buy it.";
                 },
                 unlocked() { return player.q.unlocked }, 
                 canAfford() {
                     return player.b.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					if(player.h.best.lt(1))player.b.points = player.b.points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.t.dim6 = player.t.dim6.add(1)
+                    cost = Infinity
+                    player[this.layer].dim6 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -2807,36 +2406,20 @@ addLayer("t", {
             41: {
                 title: "7th Time Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[32]<6)return Infinity;
-                    let cost = x.mul(0.065).pow(1.2).add(1).mul(30000).ceil()
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.t.dim7;
-					gain=gain.mul(Decimal.pow(2,player.t.buyables[41]));
-					gain=gain.mul(tmp.h.effect);
-					gain=gain.mul(tmp.o.solEnEff2);
-					gain=gain.mul(tmp.h.challenges[52].rewardEffect);
-					if(hasUpgrade("t",14))gain=gain.mul(upgradeEffect("t",11));
-					if(hasUpgrade("b",51))gain=gain.mul(upgradeEffect("b",33));
-					return layers.inf.dimInfinityEffect(gain,player.t.dim7);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[32]<6)return "Req: Complete H Challenge 6 6 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.t.dim7)+" 7th Time Dimensions. ("+format(player.t.buyables[41])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 6th Time Dimensions per second.<br>"+
-					"Cost for Next 7th Time Dimension: "+format(data.cost)+" Boosters";
+					return "Req: 1 EP";
                 },
                 unlocked() { return player.inf.points.gte(2) }, 
                 canAfford() {
                     return player.b.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					if(player.h.best.lt(1))player.b.points = player.b.points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.t.dim7 = player.t.dim7.add(1)
+                    cost = Infinity
+                    player[this.layer].dim7 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -2844,36 +2427,20 @@ addLayer("t", {
             42: {
                 title: "8th Time Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[32]<7)return Infinity;
-                    let cost = x.mul(0.065).pow(1.2).add(1).mul(50000).ceil()
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.t.dim8;
-					gain=gain.mul(Decimal.pow(2,player.t.buyables[42]));
-					gain=gain.mul(tmp.h.effect);
-					gain=gain.mul(tmp.o.solEnEff2);
-					gain=gain.mul(tmp.h.challenges[52].rewardEffect);
-					if(hasUpgrade("t",14))gain=gain.mul(upgradeEffect("t",11));
-					if(hasUpgrade("b",51))gain=gain.mul(upgradeEffect("b",33));
-					return layers.inf.dimInfinityEffect(gain,player.t.dim8);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[32]<7)return "Req: Complete H Challenge 6 7 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.t.dim8)+" 8th Time Dimensions. ("+format(player.t.buyables[42])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 7th Time Dimensions per second.<br>"+
-					"Cost for Next 8th Time Dimension: "+format(data.cost)+" Boosters";
+					return "180 degrees to 8.";
                 },
                 unlocked() { return player.inf.points.gte(2) }, 
                 canAfford() {
                     return player.b.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					if(player.h.best.lt(1))player.b.points = player.b.points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.t.dim8 = player.t.dim8.add(1)
+                    cost = Infinity
+                    player[this.layer].dim8 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -3864,33 +3431,20 @@ addLayer("e", {
             12: {
                 title: "2nd Enhance Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[32]<1)return Infinity;
-                    let cost = Decimal.pow(100, x.pow(1.35));
-					if(player.inf.points.gte(5))cost = Decimal.pow(3, x.pow(1.35));
-                    return cost
+                    return Infinity
                 },
                 effect() {
-                    let gain=player.e.dim2;
-					gain=gain.mul(Decimal.pow(2,player.e.buyables[12]));
-					if(hasUpgrade("e",42))gain=gain.mul(tmp.e.buyables[1].effect[7]);
-					return layers.inf.dimInfinityEffect(gain,player.e.dim2);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[32]<1)return "Req: Complete H Challenge 6";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.e.dim2)+" 2nd Enhance Dimensions. ("+format(player.e.buyables[12])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 1st Enhance Dimensions per second.<br>"+
-					"Cost for Next 2nd Enhance Dimension: "+format(data.cost)+" Enhance Points";
+					return "Not enhanced at all :(";
                 },
                 unlocked() { return player.q.unlocked }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.h.best.lt(2))player[this.layer].points = player[this.layer].points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.e.dim2 = player.e.dim2.add(1)
+                    cost = Infinity
+                    player[this.layer].dim2 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -3898,33 +3452,20 @@ addLayer("e", {
             21: {
                 title: "3rd Enhance Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[32]<2)return Infinity;
-                    let cost = Decimal.pow(10000, x.pow(1.35));
-					if(player.inf.points.gte(5))cost = Decimal.pow(5, x.pow(1.35));
-                    return cost
+                    return Infinity
                 },
                 effect() {
-                    let gain=player.e.dim3;
-					gain=gain.mul(Decimal.pow(2,player.e.buyables[21]));
-					if(hasUpgrade("e",42))gain=gain.mul(tmp.e.buyables[1].effect[7]);
-					return layers.inf.dimInfinityEffect(gain,player.e.dim3);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[32]<2)return "Req: Complete H Challenge 6 2 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.e.dim3)+" 3rd Enhance Dimensions. ("+format(player.e.buyables[21])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 2nd Enhance Dimensions per second.<br>"+
-					"Cost for Next 3rd Enhance Dimension: "+format(data.cost)+" Enhance Points";
+					return "Someone stole all the 3rd dimensions.";
                 },
                 unlocked() { return player.q.unlocked }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.h.best.lt(2))player[this.layer].points = player[this.layer].points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.e.dim3 = player.e.dim3.add(1)
+                    cost = Infinity
+                    player[this.layer].dim3 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -3932,33 +3473,20 @@ addLayer("e", {
             22: {
                 title: "4th Enhance Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[32]<3)return Infinity;
-                    let cost = Decimal.pow(1e8, x.pow(1.35));
-					if(player.inf.points.gte(5))cost = Decimal.pow(7, x.pow(1.35));
-                    return cost
+                    return Infinity
                 },
                 effect() {
-                    let gain=player.e.dim4;
-					gain=gain.mul(Decimal.pow(2,player.e.buyables[22]));
-					if(hasUpgrade("e",42))gain=gain.mul(tmp.e.buyables[1].effect[7]);
-					return layers.inf.dimInfinityEffect(gain,player.e.dim4);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[32]<3)return "Req: Complete H Challenge 6 3 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.e.dim4)+" 4th Enhance Dimensions. ("+format(player.e.buyables[22])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 3rd Enhance Dimensions per second.<br>"+
-					"Cost for Next 4th Enhance Dimension: "+format(data.cost)+" Enhance Points";
+					return "This one DOES enhance something, I just don't remember what.";
                 },
                 unlocked() { return player.q.unlocked }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.h.best.lt(2))player[this.layer].points = player[this.layer].points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.e.dim4 = player.e.dim4.add(1)
+                    cost = Infinity
+                    player[this.layer].dim4 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -3966,33 +3494,20 @@ addLayer("e", {
             31: {
                 title: "5th Enhance Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[32]<4)return Infinity;
-                    let cost = Decimal.pow(1e16, x.pow(1.35));
-					if(player.inf.points.gte(5))cost = Decimal.pow(11, x.pow(1.35));
-                    return cost
+                    return Infinity
                 },
                 effect() {
-                    let gain=player.e.dim5;
-					gain=gain.mul(Decimal.pow(2,player.e.buyables[31]));
-					if(hasUpgrade("e",42))gain=gain.mul(tmp.e.buyables[1].effect[7]);
-					return layers.inf.dimInfinityEffect(gain,player.e.dim5);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[32]<4)return "Req: Complete H Challenge 6 4 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.e.dim5)+" 5th Enhance Dimensions. ("+format(player.e.buyables[31])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 4th Enhance Dimensions per second.<br>"+
-					"Cost for Next 5th Enhance Dimension: "+format(data.cost)+" Enhance Points";
+					return "Maybe if you stop trying to unlock these you might get something.";
                 },
                 unlocked() { return player.q.unlocked }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.h.best.lt(2))player[this.layer].points = player[this.layer].points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.e.dim5 = player.e.dim5.add(1)
+                    cost = Infinity
+                    player[this.layer].dim5 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -4000,33 +3515,20 @@ addLayer("e", {
             32: {
                 title: "6th Enhance Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[32]<5)return Infinity;
-                    let cost = Decimal.pow(1e32, x.pow(1.35));
-					if(player.inf.points.gte(5))cost = Decimal.pow(13, x.pow(1.35));
-                    return cost
+                    return Infinity
                 },
                 effect() {
-                    let gain=player.e.dim6;
-					gain=gain.mul(Decimal.pow(2,player.e.buyables[32]));
-					if(hasUpgrade("e",42))gain=gain.mul(tmp.e.buyables[1].effect[7]);
-					return layers.inf.dimInfinityEffect(gain,player.e.dim6);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[32]<5)return "Req: Complete H Challenge 6 5 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.e.dim6)+" 6th Enhance Dimensions. ("+format(player.e.buyables[32])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 5th Enhance Dimensions per second.<br>"+
-					"Cost for Next 6th Enhance Dimension: "+format(data.cost)+" Enhance Points";
+					return "Rotate this to get a 9th dimension.";
                 },
                 unlocked() { return player.q.unlocked }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.h.best.lt(2))player[this.layer].points = player[this.layer].points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.e.dim6 = player.e.dim6.add(1)
+                    cost = Infinity
+                    player[this.layer].dim6 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -4034,33 +3536,20 @@ addLayer("e", {
             41: {
                 title: "7th Enhance Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[32]<6)return Infinity;
-                    let cost = Decimal.pow(1e64, x.pow(1.35));
-					if(player.inf.points.gte(5))cost = Decimal.pow(17, x.pow(1.35));
-                    return cost
+                    return Infinity
                 },
                 effect() {
-                    let gain=player.e.dim7;
-					gain=gain.mul(Decimal.pow(2,player.e.buyables[41]));
-					if(hasUpgrade("e",42))gain=gain.mul(tmp.e.buyables[1].effect[7]);
-					return layers.inf.dimInfinityEffect(gain,player.e.dim7);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[32]<6)return "Req: Complete H Challenge 6 6 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.e.dim7)+" 7th Enhance Dimensions. ("+format(player.e.buyables[41])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 6th Enhance Dimensions per second.<br>"+
-					"Cost for Next 7th Enhance Dimension: "+format(data.cost)+" Enhance Points";
+					return "Come back after solving a few more puzzles.";
                 },
                 unlocked() { return player.inf.points.gte(2) }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.h.best.lt(2))player[this.layer].points = player[this.layer].points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.e.dim7 = player.e.dim7.add(1)
+                    cost = Infinity
+                    player[this.layer].dim7 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -4068,33 +3557,20 @@ addLayer("e", {
             42: {
                 title: "8th Enhance Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[32]<7)return Infinity;
-                    let cost = Decimal.pow(1e128, x.pow(1.35));
-					if(player.inf.points.gte(5))cost = Decimal.pow(19, x.pow(1.35));
-                    return cost
+                    return Infinity
                 },
                 effect() {
-                    let gain=player.e.dim8;
-					gain=gain.mul(Decimal.pow(2,player.e.buyables[42]));
-					if(hasUpgrade("e",42))gain=gain.mul(tmp.e.buyables[1].effect[7]);
-					return layers.inf.dimInfinityEffect(gain,player.e.dim8);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(player.h.challenges[32]<7)return "Req: Complete H Challenge 6 7 times";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.e.dim8)+" 8th Enhance Dimensions. ("+format(player.e.buyables[42])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 7th Enhance Dimensions per second.<br>"+
-					"Cost for Next 8th Enhance Dimension: "+format(data.cost)+" Enhance Points";
+					return "It has been cursed by a powerful Jungle creature.";
                 },
                 unlocked() { return player.inf.points.gte(2) }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.h.best.lt(2))player[this.layer].points = player[this.layer].points.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.e.dim8 = player.e.dim8.add(1)
+                    cost = Infinity
+                    player[this.layer].dim8 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -4774,30 +4250,20 @@ addLayer("sb", {
             12: {
                 title: "2nd Super-Booster Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-					if(player.h.challenges[61]<1)return Infinity;
-					let cost = Decimal.pow(1e8, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.sb.dim2;
-					gain=gain.mul(Decimal.pow(2,player.sb.buyables[12]));
-					return layers.inf.dimInfinityEffect(gain,player.sb.dim2);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[61]<1)return "Req: Complete H Challenge 11";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.sb.dim2)+" 2nd Super-Booster Dimensions. ("+format(player.sb.buyables[12])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 1st Super-Booster Dimensions per second.<br>"+
-					"Cost for Next 2nd Super-Booster Dimension: "+format(data.cost)+" Solar Energy";
+					return "Déjà vu.";
                 },
                 unlocked() { return player.m.unlocked || player.ba.unlocked }, 
                 canAfford() {
                     return player.o.energy.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player.o.energy = player.o.energy.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player.sb.dim2 = player.sb.dim2.add(1)
+                    cost = Infinity
+                    player[this.layer].dim2 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -4805,30 +4271,20 @@ addLayer("sb", {
             21: {
                 title: "3rd Super-Booster Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-					if(player.h.challenges[61]<2)return Infinity;
-					let cost = Decimal.pow(1e8, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.sb.dim3;
-					gain=gain.mul(Decimal.pow(2,player.sb.buyables[21]));
-					return layers.inf.dimInfinityEffect(gain,player.sb.dim3);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[61]<2)return "Req: Complete H Challenge 11 2 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.sb.dim3)+" 3rd Super-Booster Dimensions. ("+format(player.sb.buyables[21])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 2nd Super-Booster Dimensions per second.<br>"+
-					"Cost for Next 3rd Super-Booster Dimension: "+format(data.cost)+" Solar Energy";
+					return "This one is MINE and you CAN'T have it!";
                 },
                 unlocked() { return player.m.unlocked || player.ba.unlocked }, 
                 canAfford() {
                     return player.o.energy.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player.o.energy = player.o.energy.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player.sb.dim3 = player.sb.dim3.add(1)
+                    cost = Infinity
+                    player[this.layer].dim3 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -4836,30 +4292,20 @@ addLayer("sb", {
             22: {
                 title: "4th Super-Booster Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-					if(player.h.challenges[61]<3)return Infinity;
-					let cost = Decimal.pow(1e32, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.sb.dim4;
-					gain=gain.mul(Decimal.pow(2,player.sb.buyables[22]));
-					return layers.inf.dimInfinityEffect(gain,player.sb.dim4);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[61]<3)return "Req: Complete H Challenge 11 3 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.sb.dim4)+" 4th Super-Booster Dimensions. ("+format(player.sb.buyables[22])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 3rd Super-Booster Dimensions per second.<br>"+
-					"Cost for Next 4th Super-Booster Dimension: "+format(data.cost)+" Solar Energy";
+					return "My dog ate this dimension.";
                 },
                 unlocked() { return player.m.unlocked || player.ba.unlocked }, 
                 canAfford() {
                     return player.o.energy.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player.o.energy = player.o.energy.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player.sb.dim4 = player.sb.dim4.add(1)
+                    cost = Infinity
+                    player[this.layer].dim4 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -4867,30 +4313,20 @@ addLayer("sb", {
             31: {
                 title: "5th Super-Booster Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-					if(player.h.challenges[61]<4)return Infinity;
-					let cost = Decimal.pow(1e64, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.sb.dim5;
-					gain=gain.mul(Decimal.pow(2,player.sb.buyables[31]));
-					return layers.inf.dimInfinityEffect(gain,player.sb.dim5);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[61]<4)return "Req: Complete H Challenge 11 4 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.sb.dim5)+" 5th Super-Booster Dimensions. ("+format(player.sb.buyables[31])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 4th Super-Booster Dimensions per second.<br>"+
-					"Cost for Next 5th Super-Booster Dimension: "+format(data.cost)+" Solar Energy";
+					return "I don't have a dog.";
                 },
                 unlocked() { return (player.m.unlocked || player.ba.unlocked) && player.inf.points.gte(1) }, 
                 canAfford() {
                     return player.o.energy.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player.o.energy = player.o.energy.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player.sb.dim5 = player.sb.dim5.add(1)
+                    cost = Infinity
+                    player[this.layer].dim5 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -4898,30 +4334,20 @@ addLayer("sb", {
             32: {
                 title: "6th Super-Booster Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-					if(player.h.challenges[61]<5)return Infinity;
-					let cost = Decimal.pow(1e128, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.sb.dim5;
-					gain=gain.mul(Decimal.pow(2,player.sb.buyables[32]));
-					return layers.inf.dimInfinityEffect(gain,player.sb.dim6);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[61]<5)return "Req: Complete H Challenge 11 5 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.sb.dim6)+" 6th Super-Booster Dimensions. ("+format(player.sb.buyables[32])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 5th Super-Booster Dimensions per second.<br>"+
-					"Cost for Next 6th Super-Booster Dimension: "+format(data.cost)+" Solar Energy";
+					return "I can't believe there aren't 8!";
                 },
                 unlocked() { return (player.m.unlocked || player.ba.unlocked) && player.inf.points.gte(3) }, 
                 canAfford() {
                     return player.o.energy.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player.o.energy = player.o.energy.sub(cost)	
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player.sb.dim6 = player.sb.dim6.add(1)
+                    cost = Infinity
+                    player[this.layer].dim6 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -5674,28 +5100,20 @@ addLayer("h", {
             12: {
                 title: "2nd Hindrance Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    let cost = Decimal.pow(1e100, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.h.dim2;
-					gain=gain.mul(Decimal.pow(2,player.h.buyables[12]));
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.h.dim2)+" 2nd Hindrance Dimensions. ("+format(player.h.buyables[12])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 1st Hindrance Dimensions per second.<br>"+
-					"Cost for Next 2nd Hindrance Dimension: "+format(data.cost)+" Hindrance Spirit";
+					return "How's that for a hindrance?";
                 },
                 unlocked() { return hasUpgrade("h",41) }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.h.dim2 = player.h.dim2.add(1)
+                    cost = Infinity
+                    player[this.layer].dim2 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -5703,28 +5121,20 @@ addLayer("h", {
             21: {
                 title: "3rd Hindrance Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    let cost = Decimal.pow(1e200, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.h.dim3;
-					gain=gain.mul(Decimal.pow(2,player.h.buyables[21]));
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.h.dim3)+" 3rd Hindrance Dimensions. ("+format(player.h.buyables[21])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 2nd Hindrance Dimensions per second.<br>"+
-					"Cost for Next 3rd Hindrance Dimension: "+format(data.cost)+" Hindrance Spirit";
+					return "Do you what a useless button looks like? I sure hope you do cuz you've seen a lot of those at this point.";
                 },
                 unlocked() { return player.h.challenges[72]>=1 }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.h.dim3 = player.h.dim3.add(1)
+                    cost = Infinity
+                    player[this.layer].dim3 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -5732,28 +5142,20 @@ addLayer("h", {
             22: {
                 title: "4th Hindrance Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    let cost = Decimal.pow("1e250", x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.h.dim4;
-					gain=gain.mul(Decimal.pow(2,player.h.buyables[22]));
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.h.dim4)+" 4th Hindrance Dimensions. ("+format(player.h.buyables[22])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 3rd Hindrance Dimensions per second.<br>"+
-					"Cost for Next 4th Hindrance Dimension: "+format(data.cost)+" Hindrance Spirit";
+					return "Fourced joke.";
                 },
                 unlocked() { return player.h.challenges[81]>=1 }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.h.dim4 = player.h.dim4.add(1)
+                    cost = Infinity
+                    player[this.layer].dim4 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -5761,28 +5163,20 @@ addLayer("h", {
             31: {
                 title: "5th Hindrance Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    let cost = Decimal.pow("1e500", x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.h.dim5;
-					gain=gain.mul(Decimal.pow(2,player.h.buyables[31]));
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.h.dim5)+" 5th Hindrance Dimensions. ("+format(player.h.buyables[31])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 4th Hindrance Dimensions per second.<br>"+
-					"Cost for Next 5th Hindrance Dimension: "+format(data.cost)+" Hindrance Spirit";
+					return "Not available yet, come back in 5 hours.";
                 },
                 unlocked() { return player.i.buyables[11].gte(1) }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.h.dim5 = player.h.dim5.add(1)
+                    cost = Infinity
+                    player[this.layer].dim5 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -5790,28 +5184,20 @@ addLayer("h", {
             32: {
                 title: "6th Hindrance Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    let cost = Decimal.pow("1e750", x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.h.dim6;
-					gain=gain.mul(Decimal.pow(2,player.h.buyables[32]));
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.h.dim6)+" 6th Hindrance Dimensions. ("+format(player.h.buyables[32])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 5th Hindrance Dimensions per second.<br>"+
-					"Cost for Next 6th Hindrance Dimension: "+format(data.cost)+" Hindrance Spirit";
+					return "The 7th dimension is a lie.";
                 },
                 unlocked() { return player.i.buyables[11].gte(2) }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.h.dim6 = player.h.dim6.add(1)
+                    cost = Infinity
+                    player[this.layer].dim6 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -6592,34 +5978,20 @@ addLayer("sg", {
             12: {
                 title: "2nd Super-Generator Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[61]<1)return Infinity;
-					let cost = Decimal.pow(100, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.sg.dim2;
-					gain = gain.mul(Decimal.pow(2,player.sg.buyables[12]));
-					if(hasUpgrade("e",42))gain=gain.mul(tmp.e.buyables[1].effect[5]);
-					if(hasUpgrade("sg",22))gain=gain.mul(upgradeEffect("sg",22));
-					gain = gain.mul(layers.h.challenges[41].rewardEffect());
-					return layers.inf.dimInfinityEffect(gain,player.sg.dim2);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[61]<1)return "Req: Complete H Challenge 11";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.sg.dim2)+" 2nd Super-Generator Dimensions. ("+format(player.sg.buyables[12])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 1st Super-Generator Dimensions per second.<br>"+
-					"Cost for Next 2nd Super-Generator Dimension: "+format(data.cost)+" Super-Generator Power";
+					return "Super-Done with these dimensions.";
                 },
                 unlocked() { return player.m.unlocked || player.ba.unlocked }, 
                 canAfford() {
                     return player[this.layer].power.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.sg.best.lt(16))player[this.layer].power = player[this.layer].power.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player[this.layer].dim2 = player[this.layer].dim2.add(1)
+                    cost = Infinity
+                    player[this.layer].dim2 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -6627,34 +5999,20 @@ addLayer("sg", {
             21: {
                 title: "3rd Super-Generator Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[61]<2)return Infinity;
-					let cost = Decimal.pow(1e8, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.sg.dim3;
-					gain = gain.mul(Decimal.pow(2,player.sg.buyables[21]));
-					if(hasUpgrade("e",42))gain=gain.mul(tmp.e.buyables[1].effect[5]);
-					if(hasUpgrade("sg",22))gain=gain.mul(upgradeEffect("sg",22));
-					gain = gain.mul(layers.h.challenges[41].rewardEffect());
-					return layers.inf.dimInfinityEffect(gain,player.sg.dim3);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[61]<2)return "Req: Complete H Challenge 11 2 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.sg.dim3)+" 3rd Super-Generator Dimensions. ("+format(player.sg.buyables[21])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 2nd Super-Generator Dimensions per second.<br>"+
-					"Cost for Next 3rd Super-Generator Dimension: "+format(data.cost)+" Super-Generator Power";
+					return "Now NOT in 3D!";
                 },
                 unlocked() { return player.m.unlocked || player.ba.unlocked }, 
                 canAfford() {
                     return player[this.layer].power.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.sg.best.lt(16))player[this.layer].power = player[this.layer].power.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player[this.layer].dim3 = player[this.layer].dim3.add(1)
+                    cost = Infinity
+                    player[this.layer].dim3 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -6662,34 +6020,20 @@ addLayer("sg", {
             22: {
                 title: "4th Super-Generator Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[61]<3)return Infinity;
-					let cost = Decimal.pow(1e16, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.sg.dim4;
-					gain = gain.mul(Decimal.pow(2,player.sg.buyables[22]));
-					if(hasUpgrade("e",42))gain=gain.mul(tmp.e.buyables[1].effect[5]);
-					if(hasUpgrade("sg",22))gain=gain.mul(upgradeEffect("sg",22));
-					gain = gain.mul(layers.h.challenges[41].rewardEffect());
-					return layers.inf.dimInfinityEffect(gain,player.sg.dim4);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[61]<3)return "Req: Complete H Challenge 11 3 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.sg.dim4)+" 4th Super-Generator Dimensions. ("+format(player.sg.buyables[22])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 3rd Super-Generator Dimensions per second.<br>"+
-					"Cost for Next 4th Super-Generator Dimension: "+format(data.cost)+" Super-Generator Power";
+					return "Is anyone even gonna get here?";
                 },
                 unlocked() { return player.m.unlocked || player.ba.unlocked }, 
                 canAfford() {
                     return player[this.layer].power.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.sg.best.lt(16))player[this.layer].power = player[this.layer].power.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player[this.layer].dim4 = player[this.layer].dim4.add(1)
+                    cost = Infinity
+                    player[this.layer].dim4 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -6697,34 +6041,20 @@ addLayer("sg", {
             31: {
                 title: "5th Super-Generator Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[61]<4)return Infinity;
-					let cost = Decimal.pow(1e32, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.sg.dim5;
-					gain = gain.mul(Decimal.pow(2,player.sg.buyables[31]));
-					if(hasUpgrade("e",42))gain=gain.mul(tmp.e.buyables[1].effect[5]);
-					if(hasUpgrade("sg",22))gain=gain.mul(upgradeEffect("sg",22));
-					gain = gain.mul(layers.h.challenges[41].rewardEffect());
-					return layers.inf.dimInfinityEffect(gain,player.sg.dim5);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[61]<4)return "Req: Complete H Challenge 11 4 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.sg.dim5)+" 5th Super-Generator Dimensions. ("+format(player.sg.buyables[31])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 4th Super-Generator Dimensions per second.<br>"+
-					"Cost for Next 5th Super-Generator Dimension: "+format(data.cost)+" Super-Generator Power";
+					return "Oh well, might as well keep writing these.";
                 },
                 unlocked() { return player.m.unlocked || player.ba.unlocked }, 
                 canAfford() {
                     return player[this.layer].power.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.sg.best.lt(16))player[this.layer].power = player[this.layer].power.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player[this.layer].dim5 = player[this.layer].dim5.add(1)
+                    cost = Infinity
+                    player[this.layer].dim5 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -6732,34 +6062,20 @@ addLayer("sg", {
             32: {
                 title: "6th Super-Generator Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(player.h.challenges[61]<5)return Infinity;
-					let cost = Decimal.pow(1e64, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.sg.dim6;
-					gain = gain.mul(Decimal.pow(2,player.sg.buyables[32]));
-					if(hasUpgrade("e",42))gain=gain.mul(tmp.e.buyables[1].effect[5]);
-					if(hasUpgrade("sg",22))gain=gain.mul(upgradeEffect("sg",22));
-					gain = gain.mul(layers.h.challenges[41].rewardEffect());
-					return layers.inf.dimInfinityEffect(gain,player.sg.dim6);
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    if(player.h.challenges[61]<5)return "Req: Complete H Challenge 11 5 times";
-					let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.sg.dim6)+" 6th Super-Generator Dimensions. ("+format(player.sg.buyables[32])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 5th Super-Generator Dimensions per second.<br>"+
-					"Cost for Next 6th Super-Generator Dimension: "+format(data.cost)+" Super-Generator Power";
+					return "Should Super-Generate a life for you.";
                 },
                 unlocked() { return player.m.unlocked || player.ba.unlocked }, 
                 canAfford() {
                     return player[this.layer].power.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-                    if(player.sg.best.lt(16))player[this.layer].power = player[this.layer].power.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player[this.layer].dim6 = player[this.layer].dim6.add(1)
+                    cost = Infinity
+                    player[this.layer].dim6 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -7096,36 +6412,20 @@ addLayer("ss", {
             12: {
                 title: "2nd Subspace Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(!hasUpgrade("ss",22))return Infinity;
-                    let cost = Decimal.pow(1e20, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.ss.dim2;
-					gain = gain.mul(Decimal.pow(2,player.ss.buyables[12]));
-					gain = gain.mul(tmp.ss.effect);
-					if(hasUpgrade("s",43))gain=gain.mul(upgradeEffect("s",43));
-					gain = gain.mul(tmp.ba.posEff);
-					if(hasUpgrade("m",22))gain = gain.mul(upgradeEffect("m",22));
-					if(hasUpgrade("ss",43))gain=gain.mul(upgradeEffect("ss",43));
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(!hasUpgrade("ss",22))return "Req: Subspace Upgrade 22";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.ss.dim2)+" 2nd Subspace Dimensions. ("+format(player.ss.buyables[12])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 1st Subspace Dimensions per second.<br>"+
-					"Cost for Next 2nd Subspace Dimension: "+format(data.cost)+" Space";
+					return "Haha another dimension you can't get.";
                 },
                 unlocked() { return player[this.layer].unlocked }, 
                 canAfford() {
                     return tmp.s.getSpace.min(player.s.dim).gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					player.s.dim = player.s.dim.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player[this.layer].dim2 = player[this.layer].dim2.add(1)
+                    cost = Infinity
+					player[this.layer].dim2 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -7133,36 +6433,20 @@ addLayer("ss", {
             21: {
                 title: "3rd Subspace Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(!hasUpgrade("ss",33))return Infinity;
-                    let cost = Decimal.pow(1e100, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.ss.dim3;
-					gain = gain.mul(Decimal.pow(2,player.ss.buyables[21]));
-					gain = gain.mul(tmp.ss.effect);
-					if(hasUpgrade("s",43))gain=gain.mul(upgradeEffect("s",43));
-					gain = gain.mul(tmp.ba.posEff);
-					if(hasUpgrade("m",22))gain = gain.mul(upgradeEffect("m",22));
-					if(hasUpgrade("ss",43))gain=gain.mul(upgradeEffect("ss",43));
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(!hasUpgrade("ss",33))return "Req: Subspace Upgrade 33";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.ss.dim3)+" 3rd Subspace Dimensions. ("+format(player.ss.buyables[21])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 2nd Subspace Dimensions per second.<br>"+
-					"Cost for Next 3rd Subspace Dimension: "+format(data.cost)+" Space";
+					return "You might be wondering why I didn't just delete these altogether, good question!";
                 },
                 unlocked() { return player[this.layer].unlocked }, 
                 canAfford() {
                     return tmp.s.getSpace.min(player.s.dim).gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					player.s.dim = player.s.dim.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player[this.layer].dim3 = player[this.layer].dim3.add(1)
+                    cost = Infinity
+					player[this.layer].dim3 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -7170,36 +6454,20 @@ addLayer("ss", {
             22: {
                 title: "4th Subspace Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    if(!hasUpgrade("ss",34))return Infinity;
-                    let cost = Decimal.pow(1e200, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.ss.dim4;
-					gain = gain.mul(Decimal.pow(2,player.ss.buyables[22]));
-					gain = gain.mul(tmp.ss.effect);
-					if(hasUpgrade("s",43))gain=gain.mul(upgradeEffect("s",43));
-					gain = gain.mul(tmp.ba.posEff);
-					if(hasUpgrade("m",22))gain = gain.mul(upgradeEffect("m",22));
-					if(hasUpgrade("ss",43))gain=gain.mul(upgradeEffect("ss",43));
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-					if(!hasUpgrade("ss",34))return "Req: Subspace Upgrade 34";
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.ss.dim4)+" 4th Subspace Dimensions. ("+format(player.ss.buyables[22])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 3rd Subspace Dimensions per second.<br>"+
-					"Cost for Next 4th Subspace Dimension: "+format(data.cost)+" Space";
+					return "\"\"\"Funny\"\"\" text saying just how much you CAN'T get this dimension.";
                 },
                 unlocked() { return player[this.layer].unlocked }, 
                 canAfford() {
                     return tmp.s.getSpace.min(player.s.dim).gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					player.s.dim = player.s.dim.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player[this.layer].dim4 = player[this.layer].dim4.add(1)
+                    cost = Infinity
+					player[this.layer].dim4 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -7207,34 +6475,20 @@ addLayer("ss", {
             31: {
                 title: "5th Subspace Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    let cost = Decimal.pow("1e400", x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.ss.dim5;
-					gain = gain.mul(Decimal.pow(2,player.ss.buyables[31]));
-					gain = gain.mul(tmp.ss.effect);
-					if(hasUpgrade("s",43))gain=gain.mul(upgradeEffect("s",43));
-					gain = gain.mul(tmp.ba.posEff);
-					if(hasUpgrade("m",22))gain = gain.mul(upgradeEffect("m",22));
-					if(hasUpgrade("ss",43))gain=gain.mul(upgradeEffect("ss",43));
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.ss.dim5)+" 5th Subspace Dimensions. ("+format(player.ss.buyables[31])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 4th Subspace Dimensions per second.<br>"+
-					"Cost for Next 5th Subspace Dimension: "+format(data.cost)+" Space";
+                    return "Have you tried using real money to buy these instead?";
                 },
                 unlocked() { return player.i.buyables[11].gte(1) }, 
                 canAfford() {
                     return tmp.s.getSpace.min(player.s.dim).gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					player.s.dim = player.s.dim.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player[this.layer].dim5 = player[this.layer].dim5.add(1)
+                    cost = Infinity
+					player[this.layer].dim5 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -7242,34 +6496,20 @@ addLayer("ss", {
             32: {
                 title: "6th Subspace Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    let cost = Decimal.pow("1e600", x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.ss.dim6;
-					gain = gain.mul(Decimal.pow(2,player.ss.buyables[32]));
-					gain = gain.mul(tmp.ss.effect);
-					if(hasUpgrade("s",43))gain=gain.mul(upgradeEffect("s",43));
-					gain = gain.mul(tmp.ba.posEff);
-					if(hasUpgrade("m",22))gain = gain.mul(upgradeEffect("m",22));
-					if(hasUpgrade("ss",43))gain=gain.mul(upgradeEffect("ss",43));
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.ss.dim6)+" 6th Subspace Dimensions. ("+format(player.ss.buyables[32])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 5th Subspace Dimensions per second.<br>"+
-					"Cost for Next 6th Subspace Dimension: "+format(data.cost)+" Space";
+                    return "This button's broken and I'm not fixing it.";
                 },
                 unlocked() { return player.i.buyables[11].gte(2) }, 
                 canAfford() {
                     return tmp.s.getSpace.min(player.s.dim).gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					player.s.dim = player.s.dim.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player[this.layer].dim6 = player[this.layer].dim6.add(1)
+                    cost = Infinity
+					player[this.layer].dim6 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -7791,34 +7031,20 @@ addLayer("o", {
             12: {
                 title: "2nd Solar Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    let cost = Decimal.pow(10, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.o.dim2;
-					gain = gain.mul(Decimal.pow(2,player.o.buyables[12]));
-					gain = gain.mul(tmp.o.solEnEff);
-					if(hasUpgrade("o",31))gain = gain.mul(upgradeEffect("o",31));
-					if(hasUpgrade("m",22))gain = gain.mul(upgradeEffect("m",22));
-					gain = gain.mul(tmp.n.dustEffs.orange);
-					
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.o.dim2)+" 2nd Solar Dimensions. ("+format(player.o.buyables[12])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 1st Solar Dimensions per second.<br>"+
-					"Cost for Next 2nd Solar Dimension: "+format(data.cost)+" Solarity";
+                    return "Req: 1 6th Lunar Dimension.";
                 },
                 unlocked() { return hasUpgrade("o",33) }, 
                 canAfford() {
                     return player.o.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					player.o.points = player.o.points.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player[this.layer].dim2 = player[this.layer].dim2.add(1)
+                    cost = Infinity
+					player[this.layer].dim2 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -7826,34 +7052,20 @@ addLayer("o", {
             21: {
                 title: "3rd Solar Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    let cost = Decimal.pow(100, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.o.dim3;
-					gain = gain.mul(Decimal.pow(2,player.o.buyables[21]));
-					gain = gain.mul(tmp.o.solEnEff);
-					if(hasUpgrade("o",31))gain = gain.mul(upgradeEffect("o",31));
-					if(hasUpgrade("m",22))gain = gain.mul(upgradeEffect("m",22));
-					gain = gain.mul(tmp.n.dustEffs.orange);
-					
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.o.dim3)+" 3rd Solar Dimensions. ("+format(player.o.buyables[21])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 2nd Solar Dimensions per second.<br>"+
-					"Cost for Next 3rd Solar Dimension: "+format(data.cost)+" Solarity";
+                    return "Used too much sunscreen, sun's gone now.";
                 },
                 unlocked() { return hasUpgrade("o",41) }, 
                 canAfford() {
                     return player.o.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					player.o.points = player.o.points.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player[this.layer].dim3 = player[this.layer].dim3.add(1)
+                    cost = Infinity
+					player[this.layer].dim3 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -7861,34 +7073,20 @@ addLayer("o", {
             22: {
                 title: "4th Solar Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    let cost = Decimal.pow(1000, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.o.dim4;
-					gain = gain.mul(Decimal.pow(2,player.o.buyables[22]));
-					gain = gain.mul(tmp.o.solEnEff);
-					if(hasUpgrade("o",31))gain = gain.mul(upgradeEffect("o",31));
-					if(hasUpgrade("m",22))gain = gain.mul(upgradeEffect("m",22));
-					gain = gain.mul(tmp.n.dustEffs.orange);
-					
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.o.dim4)+" 4th Solar Dimensions. ("+format(player.o.buyables[22])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 3rd Solar Dimensions per second.<br>"+
-					"Cost for Next 4th Solar Dimension: "+format(data.cost)+" Solarity";
+                    return "CAN'T GET THIS ALSO HOW DO YOU TURN OFF CAPS LOCK.";
                 },
                 unlocked() { return hasUpgrade("o",44) }, 
                 canAfford() {
                     return player.o.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					player.o.points = player.o.points.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player[this.layer].dim4 = player[this.layer].dim4.add(1)
+                    cost = Infinity
+					player[this.layer].dim4 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -7896,34 +7094,20 @@ addLayer("o", {
             31: {
                 title: "5th Solar Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    let cost = Decimal.pow(10000, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.o.dim5;
-					gain = gain.mul(Decimal.pow(2,player.o.buyables[31]));
-					gain = gain.mul(tmp.o.solEnEff);
-					if(hasUpgrade("o",31))gain = gain.mul(upgradeEffect("o",31));
-					if(hasUpgrade("m",22))gain = gain.mul(upgradeEffect("m",22));
-					gain = gain.mul(tmp.n.dustEffs.orange);
-					
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.o.dim5)+" 5th Solar Dimensions. ("+format(player.o.buyables[31])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 4th Solar Dimensions per second.<br>"+
-					"Cost for Next 5th Solar Dimension: "+format(data.cost)+" Solarity";
+                    return "Can you tell I've already lost my mind?";
                 },
                 unlocked() { return player.i.buyables[11].gte(1) }, 
                 canAfford() {
                     return player.o.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					player.o.points = player.o.points.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player[this.layer].dim5 = player[this.layer].dim5.add(1)
+                    cost = Infinity
+					player[this.layer].dim5 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -7931,34 +7115,20 @@ addLayer("o", {
             32: {
                 title: "6th Solar Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    let cost = Decimal.pow(100000, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.o.dim6;
-					gain = gain.mul(Decimal.pow(2,player.o.buyables[32]));
-					gain = gain.mul(tmp.o.solEnEff);
-					if(hasUpgrade("o",31))gain = gain.mul(upgradeEffect("o",31));
-					if(hasUpgrade("m",22))gain = gain.mul(upgradeEffect("m",22));
-					gain = gain.mul(tmp.n.dustEffs.orange);
-					
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.o.dim6)+" 6th Solar Dimensions. ("+format(player.o.buyables[32])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 5th Solar Dimensions per second.<br>"+
-					"Cost for Next 6th Solar Dimension: "+format(data.cost)+" Solarity";
+                    return "At this point I'm just worried about you.";
                 },
                 unlocked() { return player.i.buyables[11].gte(2) }, 
                 canAfford() {
                     return player.o.points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					player.o.points = player.o.points.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player[this.layer].dim6 = player[this.layer].dim6.add(1)
+                    cost = Infinity
+					player[this.layer].dim6 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -8298,31 +7468,20 @@ addLayer("m", {
             12: {
                 title: "2nd Magical Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    let cost = Decimal.pow(10, x.pow(1.35))
-                    return cost
+                    return Infinity;
                 },
                 effect() {
-					let gain=player.m.dim2;
-					gain=gain.mul(Decimal.pow(2,player.m.buyables[12]));
-					gain=gain.mul(clickableEffect("m",12));
-					gain=gain.mul(tmp.l.powerEffect);
-					return gain;
+					return new Decimal(0);
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.m.dim2)+" 2nd Magical Dimensions. ("+format(player.m.buyables[12])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 1st Magical Dimensions per second.<br>"+
-					"Cost for Next 2nd Magical Dimension: "+format(data.cost)+" magic";
+                    return "Wanna see a magic trick? *poof* this dimension is GONE."
                 },
                 unlocked() { return hasUpgrade("m",31) }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					player.m.points = player.m.points.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.m.dim2 = player.m.dim2.add(1)
+                    cost = Infinity
+					player.m.dim2 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -8494,30 +7653,20 @@ addLayer("ba", {
             21: {
                 title: "2nd Positive Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    let cost = Decimal.pow(8, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.ba.pdim2;
-					gain=gain.mul(Decimal.pow(2,player.ba.buyables[21]));
-					if(hasUpgrade("ba",43))gain=gain.mul(upgradeEffect("ba",43));
-					return gain;
+					return new Decimal(0)
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.ba.pdim2)+" 2nd Positive Dimensions. ("+format(player.ba.buyables[21])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 1st Positive Dimensions per second.<br>"+
-					"Cost for Next 2nd Positive Dimension: "+format(data.cost)+" balance energy";
+                    return "Positively infuriating!";
                 },
                 unlocked() { return hasUpgrade("ba",41) }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					player.ba.points = player.ba.points.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.ba.pdim2 = player.ba.pdim2.add(1)
+                    cost = Infinity
+					player.ba.pdim2 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},
@@ -8525,30 +7674,20 @@ addLayer("ba", {
             22: {
                 title: "2nd Negative Dimension", // Optional, displayed at the top in a larger font
                 cost(x=player[this.layer].buyables[this.id]) { // cost for buying xth buyable, can be an object if there are multiple currencies
-                    let cost = Decimal.pow(25, x.pow(1.35))
-                    return cost
+                    return Infinity
                 },
                 effect() {
-					let gain=player.ba.pdim2;
-					gain=gain.mul(Decimal.pow(2,player.ba.buyables[22]));
-					if(hasUpgrade("ba",43))gain=gain.mul(upgradeEffect("ba",43));
-					return gain;
+					return new Decimal(0)
                 },
                 display() { // Everything else displayed in the buyable button after the title
-                    let data = tmp[this.layer].buyables[this.id]
-                    return "You have "+format(player.ba.ndim2)+" 2nd Negative Dimensions. ("+format(player.ba.buyables[22])+" bought)<br>"+
-                    "They are producing "+format(data.effect)+" 1st Negative Dimensions per second.<br>"+
-					"Cost for Next 2nd Negative Dimension: "+format(data.cost)+" balance energy";
+                    return "Pun involving the word negative!";
                 },
                 unlocked() { return hasUpgrade("ba",42) }, 
                 canAfford() {
                     return player[this.layer].points.gte(tmp[this.layer].buyables[this.id].cost)},
                 buy() { 
-                    cost = tmp[this.layer].buyables[this.id].cost
-					player.ba.points = player.ba.points.sub(cost)
-                    player[this.layer].buyables[this.id] = player[this.layer].buyables[this.id].add(1)
-                    player[this.layer].spentOnBuyables = player[this.layer].spentOnBuyables.add(cost) // This is a built-in system that you can use for respeccing but it only works with a single Decimal value
-					player.ba.ndim2 = player.ba.ndim2.add(1)
+                    cost = Infinity
+					player.ba.ndim2 = new Decimal(0)
                 },
                 buyMax() {}, // You'll have to handle this yourself if you want
                 style: {'height':'222px'},

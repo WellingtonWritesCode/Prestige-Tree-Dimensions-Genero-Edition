@@ -12,14 +12,17 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "1.0.7",
-	name: "Bye Bye 2nd Dimension Update",
+	num: "1.0.8",
+	name: "1st Dimension Supremacy Update",
 }
 
 let changelog = `
 
 
 <h1>Changelog:</h1><br>
+	<h3>v1.0.8</h3><br>
+	- Removed every non 1st dimension<br>
+	- Endgame: Still don't know
 	<h3>v1.0.7</h3><br>
 	- Removed the 2nd Dimension<br>
 	- Endgame: Idk tbh
